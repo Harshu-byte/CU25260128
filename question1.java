@@ -1,23 +1,26 @@
-class Student {
-    int rollNo;
-    String name;
-    double marks;
+import java.util.ArrayList;
 
-    void displayDetails() {
-        System.out.println("Roll Number: " + rollNo);
-        System.out.println("Name: " + name);
-        System.out.println("Marks: " + marks);
-    }
-}
-
-public class StudentMain {
+public class StudentListMain {
     public static void main(String[] args) {
-        Student s1 = new Student();
+        ArrayList<String> students = new ArrayList<>();
 
-        s1.rollNo = 101;
-        s1.name = "Rahul";
-        s1.marks = 85.5;
+        students.add("Rahul");
+        students.add("Amit");
+        students.add("Priya");
+        students.add("Neha");
+        students.add("Rohit");
+        students.add("Anjali");
+        students.add("Karan");
+        students.add("Sneha");
+        students.add("Vikas");
+        students.add("Pooja");
 
-        s1.displayDetails();
+        System.out.println("Student Names:");
+
+        for (String name : students) {
+            System.out.println(name);
+        }
+
+        System.out.println("Total Students: " + students.size());
     }
 }

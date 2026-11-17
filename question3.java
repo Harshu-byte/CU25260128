@@ -1,22 +1,20 @@
-class Pharmacy {
-    String pharmacyName;
-    String location;
+import java.util.ArrayList;
 
-    Pharmacy(String pharmacyName, String location) {
-        this.pharmacyName = pharmacyName;
-        this.location = location;
-    }
-
-    void displayDetails() {
-        System.out.println("Pharmacy Name: " + pharmacyName);
-        System.out.println("Location: " + location);
-    }
-}
-
-public class PharmacyMain {
+public class UpdateStudentMain {
     public static void main(String[] args) {
-        Pharmacy p1 = new Pharmacy("Health Care Pharmacy", "Roorkee");
+        ArrayList<String> students = new ArrayList<>();
 
-        p1.displayDetails();
+        students.add("Rahul");
+        students.add("Amit");
+        students.add("Priya");
+        students.add("Neha");
+        students.add("Rohit");
+
+        System.out.println("Original List: " + students);
+
+        students.set(1, "Suresh");
+        students.remove(3);
+
+        System.out.println("Updated List: " + students);
     }
 }

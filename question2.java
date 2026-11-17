@@ -1,23 +1,17 @@
-class Medicine {
-    String name;
-    double price;
-    int quantity;
+import java.util.ArrayList;
 
-    void calculateBill() {
-        double total = price * quantity;
-        System.out.println("Medicine: " + name);
-        System.out.println("Total Bill: " + total);
-    }
-}
-
-public class MedicineMain {
+public class MarksListMain {
     public static void main(String[] args) {
-        Medicine m1 = new Medicine();
+        ArrayList<Integer> marks = new ArrayList<>();
 
-        m1.name = "Paracetamol";
-        m1.price = 10;
-        m1.quantity = 5;
+        marks.add(85);
+        marks.add(90);
+        marks.add(78);
+        marks.add(88);
+        marks.add(95);
 
-        m1.calculateBill();
+        System.out.println("First Mark: " + marks.get(0));
+        System.out.println("Middle Mark: " + marks.get(2));
+        System.out.println("Last Mark: " + marks.get(marks.size() - 1));
     }
 }

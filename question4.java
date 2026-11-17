@@ -1,25 +1,20 @@
-class Patient {
-    int patientId;
-    String patientName;
-    int age;
+import java.util.HashSet;
 
-    Patient(int patientId, String patientName, int age) {
-        this.patientId = patientId;
-        this.patientName = patientName;
-        this.age = age;
-    }
-
-    void displayPatient() {
-        System.out.println("Patient ID: " + patientId);
-        System.out.println("Patient Name: " + patientName);
-        System.out.println("Age: " + age);
-    }
-}
-
-public class PatientMain {
+public class UniqueDepartmentsMain {
     public static void main(String[] args) {
-        Patient p1 = new Patient(101, "Amit", 25);
+        HashSet<String> departments = new HashSet<>();
 
-        p1.displayPatient();
+        departments.add("Computer Science");
+        departments.add("Mechanical");
+        departments.add("Electrical");
+        departments.add("Computer Science");
+        departments.add("Civil");
+        departments.add("Mechanical");
+
+        System.out.println("Unique Departments:");
+
+        for (String department : departments) {
+            System.out.println(department);
+        }
     }
 }

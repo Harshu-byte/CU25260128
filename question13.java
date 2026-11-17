@@ -1,30 +1,31 @@
-class Person {
-    String name;
-    int age;
+import java.util.ArrayList;
+import java.util.ListIterator;
 
-    void displayPerson() {
-        System.out.println("Name: " + name);
-        System.out.println("Age: " + age);
-    }
-}
-
-class Student extends Person {
-    int rollNo;
-
-    void displayStudent() {
-        displayPerson();
-        System.out.println("Roll Number: " + rollNo);
-    }
-}
-
-public class SingleInheritanceMain {
+public class ListIteratorReportMain {
     public static void main(String[] args) {
-        Student s = new Student();
+        ArrayList<String> courses = new ArrayList<>();
 
-        s.name = "Rahul";
-        s.age = 20;
-        s.rollNo = 101;
+        courses.add("Java");
+        courses.add("Python");
+        courses.add("C++");
+        courses.add("HTML");
+        courses.add("Database");
 
-        s.displayStudent();
+        ListIterator<String> iterator = courses.listIterator();
+
+        System.out.println("Forward Traversal:");
+
+        while (iterator.hasNext()) {
+            System.out.println(iterator.next());
+            System.out.println("Next Index: " + iterator.nextIndex());
+        }
+
+        System.out.println("\nBackward Traversal:");
+
+        while (iterator.hasPrevious()) {
+            System.out.println(iterator.previous());
+            System.out.println("Previous Index: "
+                    + iterator.previousIndex());
+        }
     }
 }

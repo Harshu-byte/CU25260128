@@ -1,47 +1,56 @@
-class Employee {
-    String name;
-    double salary;
+import java.util.ArrayList;
+import java.util.LinkedList;
 
-    void displayEmployee() {
-        System.out.println("Name: " + name);
-        System.out.println("Salary: " + salary);
-    }
-}
-
-class Doctor extends Employee {
-    String specialization;
-
-    void displayDoctor() {
-        displayEmployee();
-        System.out.println("Specialization: " + specialization);
-    }
-}
-
-class Pharmacist extends Employee {
-    String pharmacyName;
-
-    void displayPharmacist() {
-        displayEmployee();
-        System.out.println("Pharmacy: " + pharmacyName);
-    }
-}
-
-public class HierarchicalMain {
+public class ArrayListVsLinkedListMain {
     public static void main(String[] args) {
-        Doctor d = new Doctor();
-        d.name = "Amit";
-        d.salary = 50000;
-        d.specialization = "Cardiology";
+        ArrayList<String> arrayList = new ArrayList<>();
+        LinkedList<String> linkedList = new LinkedList<>();
 
-        Pharmacist p = new Pharmacist();
-        p.name = "Rahul";
-        p.salary = 30000;
-        p.pharmacyName = "Health Care Pharmacy";
+        // Insertion
+        arrayList.add("Java");
+        arrayList.add("Python");
+        arrayList.add("C++");
 
-        System.out.println("Doctor Details:");
-        d.displayDoctor();
+        linkedList.add("Java");
+        linkedList.add("Python");
+        linkedList.add("C++");
 
-        System.out.println("\nPharmacist Details:");
-        p.displayPharmacist();
+        System.out.println("ArrayList: " + arrayList);
+        System.out.println("LinkedList: " + linkedList);
+
+        // Insert element
+        arrayList.add(1, "HTML");
+        linkedList.add(1, "HTML");
+
+        System.out.println("\nAfter Insertion:");
+        System.out.println("ArrayList: " + arrayList);
+        System.out.println("LinkedList: " + linkedList);
+
+        // Delete element
+        arrayList.remove("Python");
+        linkedList.remove("Python");
+
+        System.out.println("\nAfter Deletion:");
+        System.out.println("ArrayList: " + arrayList);
+        System.out.println("LinkedList: " + linkedList);
+
+        // Get element
+        System.out.println("\nArrayList get(1): " + arrayList.get(1));
+        System.out.println("LinkedList get(1): " + linkedList.get(1));
+
+        // Size
+        System.out.println("\nArrayList Size: " + arrayList.size());
+        System.out.println("LinkedList Size: " + linkedList.size());
+
+        // Iteration
+        System.out.println("\nArrayList Iteration:");
+        for (String item : arrayList) {
+            System.out.println(item);
+        }
+
+        System.out.println("\nLinkedList Iteration:");
+        for (String item : linkedList) {
+            System.out.println(item);
+        }
     }
 }

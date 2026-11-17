@@ -1,38 +1,27 @@
-class Patient {
-    private String name;
-    private int age;
+import java.util.ArrayList;
+import java.util.Collections;
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public void setAge(int age) {
-        if (age > 0 && age <= 120) {
-            this.age = age;
-        } else {
-            System.out.println("Invalid age!");
-        }
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public int getAge() {
-        return age;
-    }
-}
-
-public class PatientValidationMain {
+public class CollectionsUtilityMain {
     public static void main(String[] args) {
-        Patient p = new Patient();
+        ArrayList<Integer> numbers = new ArrayList<>();
 
-        p.setName("Rahul");
-        p.setAge(25);
+        numbers.add(40);
+        numbers.add(10);
+        numbers.add(30);
+        numbers.add(20);
+        numbers.add(10);
 
-        System.out.println("Patient Name: " + p.getName());
-        System.out.println("Patient Age: " + p.getAge());
+        System.out.println("Original List: " + numbers);
 
-        p.setAge(150);
+        Collections.sort(numbers);
+        System.out.println("Sorted List: " + numbers);
+
+        Collections.reverse(numbers);
+        System.out.println("Reversed List: " + numbers);
+
+        System.out.println("Maximum: " + Collections.max(numbers));
+        System.out.println("Minimum: " + Collections.min(numbers));
+        System.out.println("Frequency of 10: "
+                + Collections.frequency(numbers, 10));
     }
 }

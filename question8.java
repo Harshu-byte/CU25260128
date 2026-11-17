@@ -1,44 +1,20 @@
-class BankAccount {
-    private int accountNumber;
-    private double balance;
+import java.util.LinkedList;
 
-    public void setAccountDetails(int accountNumber, double balance) {
-        this.accountNumber = accountNumber;
-        this.balance = balance;
-    }
-
-    public void deposit(double amount) {
-        if (amount > 0) {
-            balance += amount;
-            System.out.println("Amount deposited: " + amount);
-        } else {
-            System.out.println("Invalid deposit amount.");
-        }
-    }
-
-    public void withdraw(double amount) {
-        if (amount > 0 && amount <= balance) {
-            balance -= amount;
-            System.out.println("Amount withdrawn: " + amount);
-        } else {
-            System.out.println("Insufficient balance or invalid amount.");
-        }
-    }
-
-    public void displayBalance() {
-        System.out.println("Account Number: " + accountNumber);
-        System.out.println("Balance: " + balance);
-    }
-}
-
-public class BankAccountMain {
+public class LinkedListQueueMain {
     public static void main(String[] args) {
-        BankAccount account = new BankAccount();
+        LinkedList<String> students = new LinkedList<>();
 
-        account.setAccountDetails(12345, 5000);
+        students.addFirst("Rahul");
+        students.addLast("Amit");
+        students.addLast("Priya");
+        students.addFirst("Neha");
 
-        account.deposit(2000);
-        account.withdraw(1500);
-        account.displayBalance();
+        System.out.println("Student Queue: " + students);
+
+        students.removeFirst();
+        System.out.println("After removeFirst(): " + students);
+
+        students.removeLast();
+        System.out.println("After removeLast(): " + students);
     }
 }

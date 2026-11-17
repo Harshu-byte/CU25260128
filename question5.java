@@ -1,27 +1,24 @@
-class Medicine {
-    String medicineName;
-    int minimumAge;
+import java.util.TreeSet;
 
-    Medicine(String medicineName, int minimumAge) {
-        this.medicineName = medicineName;
-        this.minimumAge = minimumAge;
-    }
-
-    void checkEligibility(int patientAge) {
-        System.out.println("Medicine: " + medicineName);
-
-        if (patientAge >= minimumAge) {
-            System.out.println("Patient is eligible.");
-        } else {
-            System.out.println("Patient is not eligible.");
-        }
-    }
-}
-
-public class EligibilityMain {
+public class SortedRollNumbersMain {
     public static void main(String[] args) {
-        Medicine m1 = new Medicine("Medicine A", 18);
+        TreeSet<Integer> rollNumbers = new TreeSet<>();
 
-        m1.checkEligibility(25);
+        rollNumbers.add(105);
+        rollNumbers.add(102);
+        rollNumbers.add(110);
+        rollNumbers.add(101);
+        rollNumbers.add(108);
+        rollNumbers.add(103);
+        rollNumbers.add(109);
+        rollNumbers.add(104);
+        rollNumbers.add(107);
+        rollNumbers.add(106);
+
+        System.out.println("Sorted Roll Numbers:");
+
+        for (int roll : rollNumbers) {
+            System.out.println(roll);
+        }
     }
 }

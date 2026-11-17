@@ -1,20 +1,25 @@
-class Medicine {
-    public String medicineName = "Paracetamol";
-    public double price = 20;
+import java.util.ArrayList;
+import java.util.ListIterator;
 
-    public void displayDetails() {
-        System.out.println("Medicine: " + medicineName);
-        System.out.println("Price: " + price);
-    }
-}
-
-public class PublicAccessMain {
+public class ListIteratorModificationMain {
     public static void main(String[] args) {
-        Medicine m = new Medicine();
+        ArrayList<String> students = new ArrayList<>();
 
-        System.out.println(m.medicineName);
-        System.out.println(m.price);
+        students.add("Rahul");
+        students.add("Amit");
+        students.add("Priya");
 
-        m.displayDetails();
+        ListIterator<String> iterator = students.listIterator();
+
+        while (iterator.hasNext()) {
+            String name = iterator.next();
+
+            if (name.equals("Amit")) {
+                iterator.set("Suresh");
+                iterator.add("Neha");
+            }
+        }
+
+        System.out.println("Modified List: " + students);
     }
 }

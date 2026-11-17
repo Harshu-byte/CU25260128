@@ -1,40 +1,28 @@
-class MedicineProduct {
-    private String medicineName;
-    private double price;
-    private int quantity;
+import java.util.ArrayList;
+import java.util.Scanner;
 
-    public void setDetails(String medicineName, double price, int quantity) {
-        this.medicineName = medicineName;
-        this.price = price;
-        this.quantity = quantity;
-    }
-
-    public String getMedicineName() {
-        return medicineName;
-    }
-
-    public double getPrice() {
-        return price;
-    }
-
-    public int getQuantity() {
-        return quantity;
-    }
-
-    public double calculateTotal() {
-        return price * quantity;
-    }
-}
-
-public class MedicineProductMain {
+public class ArrayListSearchMain {
     public static void main(String[] args) {
-        MedicineProduct m = new MedicineProduct();
+        ArrayList<String> courses = new ArrayList<>();
 
-        m.setDetails("Paracetamol", 10, 5);
+        courses.add("Java");
+        courses.add("Python");
+        courses.add("C++");
+        courses.add("Web Development");
+        courses.add("Database Management");
 
-        System.out.println("Medicine: " + m.getMedicineName());
-        System.out.println("Price: " + m.getPrice());
-        System.out.println("Quantity: " + m.getQuantity());
-        System.out.println("Total: " + m.calculateTotal());
+        Scanner sc = new Scanner(System.in);
+
+        System.out.println("Available Courses: " + courses);
+        System.out.print("Enter course name to search: ");
+        String course = sc.nextLine();
+
+        if (courses.contains(course)) {
+            System.out.println("Course exists in the list.");
+        } else {
+            System.out.println("Course not found.");
+        }
+
+        sc.close();
     }
 }
