@@ -1,26 +1,102 @@
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.*;
 
-public class CopyFileMain {
-    public static void main(String[] args) {
-        try {
-            FileReader reader = new FileReader("source.txt");
-            FileWriter writer = new FileWriter("backup.txt");
+public class CourseSelectionMain extends JFrame implements ActionListener {
+    JTextField name;
+    JComboBox<String> course;
+    JRadioButton male, female;
+    JCheckBox java, python, dbms, networking;
+    JButton submit, reset;
 
-            int character;
+    CourseSelectionMain() {
+        setTitle("Course Selection Form");
+        setSize(400, 350);
+        setLayout(new GridLayout(7, 2, 10, 10));
 
-            while ((character = reader.read()) != -1) {
-                writer.write(character);
-            }
+        add(new JLabel("Student Name:"));
+        name = new JTextField();
+        add(name);
 
-            reader.close();
-            writer.close();
+        add(new JLabel("Course:"));
+        course = new JComboBox<>(new String[]{
+                "BCA", "BBA", "B.Tech", "MCA"
+        });
+        add(course);
 
-            System.out.println("File copied successfully.");
+        add(new JLabel("Gender:"));
+        male = new JRadioButton("Male");
+        female = new JRadioButton("Female");
 
-        } catch (IOException e) {
-            System.out.println("Error copying file: " + e.getMessage());
+        ButtonGroup gender = new ButtonGroup();
+        gender.add(male);
+        gender.add(female);
+
+        JPanel genderPanel = new JPanel();
+        genderPanel.add(male);
+        genderPanel.add(female);
+        add(genderPanel);
+
+        add(new JLabel("Subjects:"));
+
+        java = new JCheckBox("Java");
+        python = new JCheckBox("Python");
+        dbms = new JCheckBox("DBMS");
+        networking = new JCheckBox("Networking");
+
+        JPanel subjectPanel = new JPanel();
+        subjectPanel.add(java);
+        subjectPanel.add(python);
+        subjectPanel.add(dbms);
+        subjectPanel.add(networking);
+        add(subjectPanel);
+
+        submit = new JButton("Submit");
+        reset = new JButton("Reset");
+
+        add(submit);
+        add(reset);
+
+        submit.addActionListener(this);
+        reset.addActionListener(this);
+
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setLocationRelativeTo(null);
+        setVisible(true);
+    }
+
+    public void actionPerformed(ActionEvent e) {
+        if (e.getSource() == submit) {
+            String gender = male.isSelected() ? "Male"
+                    : female.isSelected() ? "Female" : "Not selected";
+
+            String subjects = "";
+
+            if (java.isSelected()) subjects += "Java ";
+            if (python.isSelected()) subjects += "Python ";
+            if (dbms.isSelected()) subjects += "DBMS ";
+            if (networking.isSelected()) subjects += "Networking ";
+
+            String message = "Name: " + name.getText()
+                    + "\nCourse: " + course.getSelectedItem()
+                    + "\nGender: " + gender
+                    + "\nSubjects: " + subjects;
+
+            JOptionPane.showMessageDialog(this, message);
+
+        } else {
+            name.setText("");
+            course.setSelectedIndex(0);
+            male.setSelected(false);
+            female.setSelected(false);
+            java.setSelected(false);
+            python.setSelected(false);
+            dbms.setSelected(false);
+            networking.setSelected(false);
         }
+    }
+
+    public static void main(String[] args) {
+        new CourseSelectionMain();
     }
 }

@@ -1,48 +1,56 @@
-import java.io.BufferedReader;
-import java.io.FileWriter;
-import java.io.FileReader;
-import java.io.IOException;
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.*;
 
-public class FileCountMain {
-    public static void main(String[] args) {
-        String fileName = "data.txt";
+public class StudentLoginMain extends JFrame implements ActionListener {
+    JTextField username;
+    JPasswordField password;
+    JButton login, reset;
 
-        try {
-            FileWriter writer = new FileWriter(fileName);
+    StudentLoginMain() {
+        setTitle("Student Login");
+        setSize(350, 200);
+        setLayout(new GridLayout(3, 2, 10, 10));
 
-            writer.write("Java is a programming language.\n");
-            writer.write("Java supports file handling.\n");
-            writer.write("Collections are useful.");
+        add(new JLabel("Username:"));
+        username = new JTextField();
+        add(username);
 
-            writer.close();
+        add(new JLabel("Password:"));
+        password = new JPasswordField();
+        add(password);
 
-            BufferedReader reader =
-                    new BufferedReader(new FileReader(fileName));
+        login = new JButton("Login");
+        reset = new JButton("Reset");
 
-            int lines = 0;
-            int words = 0;
-            int characters = 0;
-            String line;
+        add(login);
+        add(reset);
 
-            while ((line = reader.readLine()) != null) {
-                lines++;
-                characters += line.length();
+        login.addActionListener(this);
+        reset.addActionListener(this);
 
-                String trimmed = line.trim();
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setLocationRelativeTo(null);
+        setVisible(true);
+    }
 
-                if (!trimmed.isEmpty()) {
-                    words += trimmed.split("\\s+").length;
-                }
+    public void actionPerformed(ActionEvent e) {
+        if (e.getSource() == login) {
+            String user = username.getText();
+            String pass = new String(password.getPassword());
+
+            if (user.equals("student") && pass.equals("12345")) {
+                JOptionPane.showMessageDialog(this, "Login Successful!");
+            } else {
+                JOptionPane.showMessageDialog(this, "Invalid Username or Password");
             }
-
-            reader.close();
-
-            System.out.println("Total Lines: " + lines);
-            System.out.println("Total Words: " + words);
-            System.out.println("Total Characters: " + characters);
-
-        } catch (IOException e) {
-            System.out.println("File error: " + e.getMessage());
+        } else {
+            username.setText("");
+            password.setText("");
         }
+    }
+
+    public static void main(String[] args) {
+        new StudentLoginMain();
     }
 }

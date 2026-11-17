@@ -1,50 +1,104 @@
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
+import javax.swing.*;
+import java.awt.event.*;
+import java.io.*;
 
-public class CharacterCountMain {
-    public static void main(String[] args) {
-        try {
-            FileWriter writer = new FileWriter("input.txt");
+public class SimpleNotepadMain extends JFrame implements ActionListener {
 
-            writer.write("Java Programming 123\n");
-            writer.write("File Handling Example 456");
+    JTextArea textArea;
+    JMenuItem newFile, openFile, saveFile, exit;
 
-            writer.close();
+    SimpleNotepadMain() {
+        setTitle("Simple Notepad");
+        setSize(600, 500);
 
-            FileReader reader = new FileReader("input.txt");
+        textArea = new JTextArea();
+        JScrollPane scrollPane = new JScrollPane(textArea);
+        add(scrollPane);
 
-            int ch;
-            int vowels = 0;
-            int consonants = 0;
-            int digits = 0;
-            int spaces = 0;
+        JMenuBar menuBar = new JMenuBar();
+        JMenu fileMenu = new JMenu("File");
 
-            while ((ch = reader.read()) != -1) {
-                char c = (char) ch;
+        newFile = new JMenuItem("New");
+        openFile = new JMenuItem("Open");
+        saveFile = new JMenuItem("Save");
+        exit = new JMenuItem("Exit");
 
-                if (Character.isLetter(c)) {
-                    if ("aeiouAEIOU".indexOf(c) != -1) {
-                        vowels++;
-                    } else {
-                        consonants++;
+        fileMenu.add(newFile);
+        fileMenu.add(openFile);
+        fileMenu.add(saveFile);
+        fileMenu.addSeparator();
+        fileMenu.add(exit);
+
+        menuBar.add(fileMenu);
+        setJMenuBar(menuBar);
+
+        newFile.addActionListener(this);
+        openFile.addActionListener(this);
+        saveFile.addActionListener(this);
+        exit.addActionListener(this);
+
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setLocationRelativeTo(null);
+        setVisible(true);
+    }
+
+    public void actionPerformed(ActionEvent e) {
+        if (e.getSource() == newFile) {
+            textArea.setText("");
+        }
+
+        else if (e.getSource() == openFile) {
+            JFileChooser chooser = new JFileChooser();
+
+            int choice = chooser.showOpenDialog(this);
+
+            if (choice == JFileChooser.APPROVE_OPTION) {
+                File file = chooser.getSelectedFile();
+
+                try (BufferedReader reader =
+                             new BufferedReader(new FileReader(file))) {
+
+                    textArea.setText("");
+                    String line;
+
+                    while ((line = reader.readLine()) != null) {
+                        textArea.append(line + "\n");
                     }
-                } else if (Character.isDigit(c)) {
-                    digits++;
-                } else if (c == ' ') {
-                    spaces++;
+
+                } catch (IOException ex) {
+                    JOptionPane.showMessageDialog(this,
+                            "Error opening file.");
                 }
             }
-
-            reader.close();
-
-            System.out.println("Vowels: " + vowels);
-            System.out.println("Consonants: " + consonants);
-            System.out.println("Digits: " + digits);
-            System.out.println("Spaces: " + spaces);
-
-        } catch (IOException e) {
-            System.out.println("File error: " + e.getMessage());
         }
+
+        else if (e.getSource() == saveFile) {
+            JFileChooser chooser = new JFileChooser();
+
+            int choice = chooser.showSaveDialog(this);
+
+            if (choice == JFileChooser.APPROVE_OPTION) {
+                File file = chooser.getSelectedFile();
+
+                try (FileWriter writer = new FileWriter(file)) {
+                    writer.write(textArea.getText());
+
+                    JOptionPane.showMessageDialog(this,
+                            "File saved successfully.");
+
+                } catch (IOException ex) {
+                    JOptionPane.showMessageDialog(this,
+                            "Error saving file.");
+                }
+            }
+        }
+
+        else if (e.getSource() == exit) {
+            dispose();
+        }
+    }
+
+    public static void main(String[] args) {
+        new SimpleNotepadMain();
     }
 }

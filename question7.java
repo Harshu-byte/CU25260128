@@ -1,29 +1,81 @@
-import java.io.File;
-import java.util.Scanner;
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.*;
 
-public class FileInformationMain {
-    public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
+public class TemperatureConverterMain extends JFrame
+        implements ActionListener {
 
-        System.out.print("Enter file name: ");
-        String fileName = sc.nextLine();
+    JTextField temperature;
+    JRadioButton celsius, fahrenheit;
+    JButton convert, clear;
+    JLabel result;
 
-        File file = new File(fileName);
+    TemperatureConverterMain() {
+        setTitle("Temperature Converter");
+        setSize(400, 250);
+        setLayout(new GridLayout(5, 2, 10, 10));
 
-        System.out.println("File Exists: " + file.exists());
+        add(new JLabel("Enter Temperature:"));
+        temperature = new JTextField();
+        add(temperature);
 
-        if (file.exists()) {
-            System.out.println("File Name: " + file.getName());
-            System.out.println("Absolute Path: " + file.getAbsolutePath());
-            System.out.println("File Size: " + file.length() + " bytes");
-            System.out.println("Is File: " + file.isFile());
-            System.out.println("Is Directory: " + file.isDirectory());
-            System.out.println("Readable: " + file.canRead());
-            System.out.println("Writable: " + file.canWrite());
+        add(new JLabel("Conversion Type:"));
+
+        celsius = new JRadioButton("Celsius to Fahrenheit", true);
+        fahrenheit = new JRadioButton("Fahrenheit to Celsius");
+
+        ButtonGroup group = new ButtonGroup();
+        group.add(celsius);
+        group.add(fahrenheit);
+
+        JPanel panel = new JPanel();
+        panel.add(celsius);
+        panel.add(fahrenheit);
+        add(panel);
+
+        convert = new JButton("Convert");
+        clear = new JButton("Clear");
+
+        add(convert);
+        add(clear);
+
+        result = new JLabel("Result will appear here.");
+        add(result);
+
+        convert.addActionListener(this);
+        clear.addActionListener(this);
+
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setLocationRelativeTo(null);
+        setVisible(true);
+    }
+
+    public void actionPerformed(ActionEvent e) {
+        if (e.getSource() == convert) {
+            try {
+                double temp = Double.parseDouble(temperature.getText());
+                double answer;
+
+                if (celsius.isSelected()) {
+                    answer = (temp * 9 / 5) + 32;
+                    result.setText("Fahrenheit: " + answer + " °F");
+                } else {
+                    answer = (temp - 32) * 5 / 9;
+                    result.setText("Celsius: " + answer + " °C");
+                }
+
+            } catch (NumberFormatException ex) {
+                JOptionPane.showMessageDialog(this,
+                        "Please enter a valid temperature.");
+            }
         } else {
-            System.out.println("File does not exist.");
+            temperature.setText("");
+            result.setText("Result will appear here.");
+            celsius.setSelected(true);
         }
+    }
 
-        sc.close();
+    public static void main(String[] args) {
+        new TemperatureConverterMain();
     }
 }

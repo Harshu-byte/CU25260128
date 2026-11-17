@@ -1,54 +1,104 @@
-import java.io.BufferedReader;
-import java.io.FileWriter;
-import java.io.FileReader;
-import java.io.IOException;
-import java.util.Scanner;
+import java.awt.*;
+import java.awt.event.*;
 
-public class SearchWordMain {
-    public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
+public class EmployeeRegistrationMain extends Frame implements ActionListener {
+    TextField id, name, designation, salary;
+    Choice department;
+    Checkbox male, female;
+    CheckboxGroup gender;
+    TextArea result;
+    Button submit, clear;
 
-        try {
-            FileWriter writer = new FileWriter("notes.txt");
-            writer.write("Java is a programming language.\n");
-            writer.write("Java is used for application development.\n");
-            writer.write("Learning Java is useful.");
-            writer.close();
+    EmployeeRegistrationMain() {
+        setTitle("Employee Registration Form");
+        setSize(450, 500);
+        setLayout(new GridLayout(9, 2, 10, 10));
 
-            System.out.print("Enter word to search: ");
-            String searchWord = sc.nextLine();
+        add(new Label("Employee ID:"));
+        id = new TextField();
+        add(id);
 
-            BufferedReader reader =
-                    new BufferedReader(new FileReader("notes.txt"));
+        add(new Label("Employee Name:"));
+        name = new TextField();
+        add(name);
 
-            String line;
-            int count = 0;
+        add(new Label("Designation:"));
+        designation = new TextField();
+        add(designation);
 
-            while ((line = reader.readLine()) != null) {
-                String[] words = line.split("\\s+");
+        add(new Label("Salary:"));
+        salary = new TextField();
+        add(salary);
 
-                for (String word : words) {
-                    word = word.replaceAll("[^a-zA-Z0-9]", "");
+        add(new Label("Department:"));
+        department = new Choice();
+        department.add("IT");
+        department.add("HR");
+        department.add("Finance");
+        department.add("Sales");
+        add(department);
 
-                    if (word.equalsIgnoreCase(searchWord)) {
-                        count++;
-                    }
-                }
+        add(new Label("Gender:"));
+        gender = new CheckboxGroup();
+        male = new Checkbox("Male", gender, true);
+        female = new Checkbox("Female", gender, false);
+
+        Panel genderPanel = new Panel();
+        genderPanel.add(male);
+        genderPanel.add(female);
+        add(genderPanel);
+
+        submit = new Button("Submit");
+        clear = new Button("Clear");
+
+        add(submit);
+        add(clear);
+
+        add(new Label("Employee Details:"));
+        result = new TextArea(5, 30);
+        add(result);
+
+        submit.addActionListener(this);
+        clear.addActionListener(this);
+
+        addWindowListener(new WindowAdapter() {
+            public void windowClosing(WindowEvent e) {
+                dispose();
             }
+        });
 
-            reader.close();
+        setVisible(true);
+    }
 
-            if (count > 0) {
-                System.out.println("Word found.");
-                System.out.println("Occurrences: " + count);
-            } else {
-                System.out.println("Word not found.");
+    public void actionPerformed(ActionEvent e) {
+        if (e.getSource() == submit) {
+            try {
+                Double.parseDouble(salary.getText());
+
+                String details = "Employee ID: " + id.getText()
+                        + "\nName: " + name.getText()
+                        + "\nDesignation: " + designation.getText()
+                        + "\nSalary: " + salary.getText()
+                        + "\nDepartment: " + department.getSelectedItem()
+                        + "\nGender: " + gender.getSelectedCheckbox().getLabel();
+
+                result.setText(details);
+
+            } catch (NumberFormatException ex) {
+                result.setText("Please enter a valid salary.");
             }
-
-        } catch (IOException e) {
-            System.out.println("File error: " + e.getMessage());
+        } else {
+            id.setText("");
+            name.setText("");
+            designation.setText("");
+            salary.setText("");
+            department.select(0);
+            gender.setSelectedCheckbox(male);
+            result.setText("");
         }
+    }
 
-        sc.close();
+    public static void main(String[] args) {
+        new EmployeeRegistrationMain();
     }
 }

@@ -1,32 +1,79 @@
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
+import java.awt.*;
+import java.awt.event.*;
 
-public class ReadFileMain {
-    public static void main(String[] args) {
-        File file = new File("student.txt");
+public class AWTCalculatorMain extends Frame implements ActionListener {
+    TextField num1, num2;
+    Label result;
+    Button add, subtract, multiply, divide;
 
-        if (!file.exists()) {
-            System.out.println("File does not exist.");
-            return;
-        }
+    AWTCalculatorMain() {
+        setTitle("Simple Calculator");
+        setSize(400, 300);
+        setLayout(new GridLayout(5, 2, 10, 10));
 
+        add(new Label("First Number:"));
+        num1 = new TextField();
+        add(num1);
+
+        add(new Label("Second Number:"));
+        num2 = new TextField();
+        add(num2);
+
+        add = new Button("Addition");
+        subtract = new Button("Subtraction");
+        multiply = new Button("Multiplication");
+        divide = new Button("Division");
+
+        add(add);
+        add(subtract);
+        add(multiply);
+        add(divide);
+
+        result = new Label("Result: ");
+        add(result);
+
+        add.addActionListener(this);
+        subtract.addActionListener(this);
+        multiply.addActionListener(this);
+        divide.addActionListener(this);
+
+        addWindowListener(new WindowAdapter() {
+            public void windowClosing(WindowEvent e) {
+                dispose();
+            }
+        });
+
+        setVisible(true);
+    }
+
+    public void actionPerformed(ActionEvent e) {
         try {
-            BufferedReader reader =
-                    new BufferedReader(new FileReader(file));
+            double a = Double.parseDouble(num1.getText());
+            double b = Double.parseDouble(num2.getText());
+            double answer;
 
-            String line;
-
-            System.out.println("File Contents:");
-
-            while ((line = reader.readLine()) != null) {
-                System.out.println(line);
+            if (e.getSource() == add) {
+                answer = a + b;
+            } else if (e.getSource() == subtract) {
+                answer = a - b;
+            } else if (e.getSource() == multiply) {
+                answer = a * b;
+            } else {
+                if (b == 0) {
+                    result.setText("Cannot divide by zero");
+                    return;
+                }
+                answer = a / b;
             }
 
-            reader.close();
-        } catch (IOException e) {
-            System.out.println("Error reading file: " + e.getMessage());
+            result.setText("Result: " + answer);
+
+        } catch (NumberFormatException ex) {
+            result.setText("Enter valid numbers.");
         }
+    }
+
+    public static void main(String[] args) {
+        new AWTCalculatorMain();
     }
 }
