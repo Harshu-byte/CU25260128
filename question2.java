@@ -1,17 +1,32 @@
-import java.util.ArrayList;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
 
-public class MarksListMain {
+public class ReadFileMain {
     public static void main(String[] args) {
-        ArrayList<Integer> marks = new ArrayList<>();
+        File file = new File("student.txt");
 
-        marks.add(85);
-        marks.add(90);
-        marks.add(78);
-        marks.add(88);
-        marks.add(95);
+        if (!file.exists()) {
+            System.out.println("File does not exist.");
+            return;
+        }
 
-        System.out.println("First Mark: " + marks.get(0));
-        System.out.println("Middle Mark: " + marks.get(2));
-        System.out.println("Last Mark: " + marks.get(marks.size() - 1));
+        try {
+            BufferedReader reader =
+                    new BufferedReader(new FileReader(file));
+
+            String line;
+
+            System.out.println("File Contents:");
+
+            while ((line = reader.readLine()) != null) {
+                System.out.println(line);
+            }
+
+            reader.close();
+        } catch (IOException e) {
+            System.out.println("Error reading file: " + e.getMessage());
+        }
     }
 }

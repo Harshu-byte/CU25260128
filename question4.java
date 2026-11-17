@@ -1,20 +1,35 @@
-import java.util.HashSet;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.Scanner;
 
-public class UniqueDepartmentsMain {
+public class AppendFileMain {
     public static void main(String[] args) {
-        HashSet<String> departments = new HashSet<>();
+        Scanner sc = new Scanner(System.in);
 
-        departments.add("Computer Science");
-        departments.add("Mechanical");
-        departments.add("Electrical");
-        departments.add("Computer Science");
-        departments.add("Civil");
-        departments.add("Mechanical");
+        try {
+            FileWriter writer = new FileWriter("students.txt", true);
 
-        System.out.println("Unique Departments:");
+            System.out.print("Enter Student Name: ");
+            String name = sc.nextLine();
 
-        for (String department : departments) {
-            System.out.println(department);
+            System.out.print("Enter Roll Number: ");
+            String roll = sc.nextLine();
+
+            System.out.print("Enter Marks: ");
+            String marks = sc.nextLine();
+
+            writer.write("\nStudent Name: " + name);
+            writer.write("\nRoll Number: " + roll);
+            writer.write("\nMarks: " + marks + "\n");
+
+            writer.close();
+
+            System.out.println("Student record appended successfully.");
+
+        } catch (IOException e) {
+            System.out.println("Error: " + e.getMessage());
         }
+
+        sc.close();
     }
 }

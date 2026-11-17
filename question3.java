@@ -1,20 +1,48 @@
-import java.util.ArrayList;
+import java.io.BufferedReader;
+import java.io.FileWriter;
+import java.io.FileReader;
+import java.io.IOException;
 
-public class UpdateStudentMain {
+public class FileCountMain {
     public static void main(String[] args) {
-        ArrayList<String> students = new ArrayList<>();
+        String fileName = "data.txt";
 
-        students.add("Rahul");
-        students.add("Amit");
-        students.add("Priya");
-        students.add("Neha");
-        students.add("Rohit");
+        try {
+            FileWriter writer = new FileWriter(fileName);
 
-        System.out.println("Original List: " + students);
+            writer.write("Java is a programming language.\n");
+            writer.write("Java supports file handling.\n");
+            writer.write("Collections are useful.");
 
-        students.set(1, "Suresh");
-        students.remove(3);
+            writer.close();
 
-        System.out.println("Updated List: " + students);
+            BufferedReader reader =
+                    new BufferedReader(new FileReader(fileName));
+
+            int lines = 0;
+            int words = 0;
+            int characters = 0;
+            String line;
+
+            while ((line = reader.readLine()) != null) {
+                lines++;
+                characters += line.length();
+
+                String trimmed = line.trim();
+
+                if (!trimmed.isEmpty()) {
+                    words += trimmed.split("\\s+").length;
+                }
+            }
+
+            reader.close();
+
+            System.out.println("Total Lines: " + lines);
+            System.out.println("Total Words: " + words);
+            System.out.println("Total Characters: " + characters);
+
+        } catch (IOException e) {
+            System.out.println("File error: " + e.getMessage());
+        }
     }
 }

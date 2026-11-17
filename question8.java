@@ -1,20 +1,50 @@
-import java.util.LinkedList;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 
-public class LinkedListQueueMain {
+public class CharacterCountMain {
     public static void main(String[] args) {
-        LinkedList<String> students = new LinkedList<>();
+        try {
+            FileWriter writer = new FileWriter("input.txt");
 
-        students.addFirst("Rahul");
-        students.addLast("Amit");
-        students.addLast("Priya");
-        students.addFirst("Neha");
+            writer.write("Java Programming 123\n");
+            writer.write("File Handling Example 456");
 
-        System.out.println("Student Queue: " + students);
+            writer.close();
 
-        students.removeFirst();
-        System.out.println("After removeFirst(): " + students);
+            FileReader reader = new FileReader("input.txt");
 
-        students.removeLast();
-        System.out.println("After removeLast(): " + students);
+            int ch;
+            int vowels = 0;
+            int consonants = 0;
+            int digits = 0;
+            int spaces = 0;
+
+            while ((ch = reader.read()) != -1) {
+                char c = (char) ch;
+
+                if (Character.isLetter(c)) {
+                    if ("aeiouAEIOU".indexOf(c) != -1) {
+                        vowels++;
+                    } else {
+                        consonants++;
+                    }
+                } else if (Character.isDigit(c)) {
+                    digits++;
+                } else if (c == ' ') {
+                    spaces++;
+                }
+            }
+
+            reader.close();
+
+            System.out.println("Vowels: " + vowels);
+            System.out.println("Consonants: " + consonants);
+            System.out.println("Digits: " + digits);
+            System.out.println("Spaces: " + spaces);
+
+        } catch (IOException e) {
+            System.out.println("File error: " + e.getMessage());
+        }
     }
 }

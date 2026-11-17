@@ -1,26 +1,52 @@
-import java.util.ArrayList;
+import java.io.BufferedReader;
+import java.io.FileWriter;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.Scanner;
 
-public class ArrayListSearchMain {
+public class SearchWordMain {
     public static void main(String[] args) {
-        ArrayList<String> courses = new ArrayList<>();
-
-        courses.add("Java");
-        courses.add("Python");
-        courses.add("C++");
-        courses.add("Web Development");
-        courses.add("Database Management");
-
         Scanner sc = new Scanner(System.in);
 
-        System.out.println("Available Courses: " + courses);
-        System.out.print("Enter course name to search: ");
-        String course = sc.nextLine();
+        try {
+            FileWriter writer = new FileWriter("notes.txt");
+            writer.write("Java is a programming language.\n");
+            writer.write("Java is used for application development.\n");
+            writer.write("Learning Java is useful.");
+            writer.close();
 
-        if (courses.contains(course)) {
-            System.out.println("Course exists in the list.");
-        } else {
-            System.out.println("Course not found.");
+            System.out.print("Enter word to search: ");
+            String searchWord = sc.nextLine();
+
+            BufferedReader reader =
+                    new BufferedReader(new FileReader("notes.txt"));
+
+            String line;
+            int count = 0;
+
+            while ((line = reader.readLine()) != null) {
+                String[] words = line.split("\\s+");
+
+                for (String word : words) {
+                    word = word.replaceAll("[^a-zA-Z0-9]", "");
+
+                    if (word.equalsIgnoreCase(searchWord)) {
+                        count++;
+                    }
+                }
+            }
+
+            reader.close();
+
+            if (count > 0) {
+                System.out.println("Word found.");
+                System.out.println("Occurrences: " + count);
+            } else {
+                System.out.println("Word not found.");
+            }
+
+        } catch (IOException e) {
+            System.out.println("File error: " + e.getMessage());
         }
 
         sc.close();

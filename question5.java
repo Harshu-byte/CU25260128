@@ -1,24 +1,26 @@
-import java.util.TreeSet;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 
-public class SortedRollNumbersMain {
+public class CopyFileMain {
     public static void main(String[] args) {
-        TreeSet<Integer> rollNumbers = new TreeSet<>();
+        try {
+            FileReader reader = new FileReader("source.txt");
+            FileWriter writer = new FileWriter("backup.txt");
 
-        rollNumbers.add(105);
-        rollNumbers.add(102);
-        rollNumbers.add(110);
-        rollNumbers.add(101);
-        rollNumbers.add(108);
-        rollNumbers.add(103);
-        rollNumbers.add(109);
-        rollNumbers.add(104);
-        rollNumbers.add(107);
-        rollNumbers.add(106);
+            int character;
 
-        System.out.println("Sorted Roll Numbers:");
+            while ((character = reader.read()) != -1) {
+                writer.write(character);
+            }
 
-        for (int roll : rollNumbers) {
-            System.out.println(roll);
+            reader.close();
+            writer.close();
+
+            System.out.println("File copied successfully.");
+
+        } catch (IOException e) {
+            System.out.println("Error copying file: " + e.getMessage());
         }
     }
 }

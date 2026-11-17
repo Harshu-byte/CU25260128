@@ -1,27 +1,29 @@
-import java.util.ArrayList;
-import java.util.Collections;
+import java.io.File;
+import java.util.Scanner;
 
-public class CollectionsUtilityMain {
+public class FileInformationMain {
     public static void main(String[] args) {
-        ArrayList<Integer> numbers = new ArrayList<>();
+        Scanner sc = new Scanner(System.in);
 
-        numbers.add(40);
-        numbers.add(10);
-        numbers.add(30);
-        numbers.add(20);
-        numbers.add(10);
+        System.out.print("Enter file name: ");
+        String fileName = sc.nextLine();
 
-        System.out.println("Original List: " + numbers);
+        File file = new File(fileName);
 
-        Collections.sort(numbers);
-        System.out.println("Sorted List: " + numbers);
+        System.out.println("File Exists: " + file.exists());
 
-        Collections.reverse(numbers);
-        System.out.println("Reversed List: " + numbers);
+        if (file.exists()) {
+            System.out.println("File Name: " + file.getName());
+            System.out.println("Absolute Path: " + file.getAbsolutePath());
+            System.out.println("File Size: " + file.length() + " bytes");
+            System.out.println("Is File: " + file.isFile());
+            System.out.println("Is Directory: " + file.isDirectory());
+            System.out.println("Readable: " + file.canRead());
+            System.out.println("Writable: " + file.canWrite());
+        } else {
+            System.out.println("File does not exist.");
+        }
 
-        System.out.println("Maximum: " + Collections.max(numbers));
-        System.out.println("Minimum: " + Collections.min(numbers));
-        System.out.println("Frequency of 10: "
-                + Collections.frequency(numbers, 10));
+        sc.close();
     }
 }

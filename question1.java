@@ -1,26 +1,30 @@
-import java.util.ArrayList;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 
-public class StudentListMain {
+public class CreateWriteFileMain {
     public static void main(String[] args) {
-        ArrayList<String> students = new ArrayList<>();
+        try {
+            File file = new File("student.txt");
 
-        students.add("Rahul");
-        students.add("Amit");
-        students.add("Priya");
-        students.add("Neha");
-        students.add("Rohit");
-        students.add("Anjali");
-        students.add("Karan");
-        students.add("Sneha");
-        students.add("Vikas");
-        students.add("Pooja");
+            if (file.createNewFile()) {
+                System.out.println("File created: " + file.getName());
+            } else {
+                System.out.println("File already exists. Writing to it.");
+            }
 
-        System.out.println("Student Names:");
+            FileWriter writer = new FileWriter(file);
 
-        for (String name : students) {
-            System.out.println(name);
+            writer.write("Student Name: Rahul\n");
+            writer.write("Roll Number: 101\n");
+            writer.write("Course: BCA\n");
+            writer.write("Semester: 3");
+
+            writer.close();
+
+            System.out.println("Data written successfully.");
+        } catch (IOException e) {
+            System.out.println("An error occurred: " + e.getMessage());
         }
-
-        System.out.println("Total Students: " + students.size());
     }
 }
