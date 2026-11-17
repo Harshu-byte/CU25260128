@@ -1,20 +1,23 @@
-import java.util.Scanner;
+class Medicine {
+    String name;
+    double price;
+    int quantity;
 
-public class Question2 {
+    void calculateBill() {
+        double total = price * quantity;
+        System.out.println("Medicine: " + name);
+        System.out.println("Total Bill: " + total);
+    }
+}
+
+public class MedicineMain {
     public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
+        Medicine m1 = new Medicine();
 
-        int[] arr = {10, 20, 30, 40, 50};
+        m1.name = "Paracetamol";
+        m1.price = 10;
+        m1.quantity = 5;
 
-        System.out.print("Enter array index (0-4): ");
-        int index = sc.nextInt();
-
-        try {
-            System.out.println("Element: " + arr[index]);
-        } catch (ArrayIndexOutOfBoundsException e) {
-            System.out.println("Error: Invalid array index.");
-        }
-
-        sc.close();
+        m1.calculateBill();
     }
 }

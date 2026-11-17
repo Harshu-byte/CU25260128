@@ -1,27 +1,38 @@
-import java.util.Scanner;
+class Patient {
+    private String name;
+    private int age;
 
-public class Question7 {
-
-    static void checkAge(int age) throws Exception {
-        if (age < 18) {
-            throw new Exception("Age must be 18 or above.");
-        }
-
-        System.out.println("Eligible to proceed.");
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
-
-        System.out.print("Enter your age: ");
-        int age = sc.nextInt();
-
-        try {
-            checkAge(age);
-        } catch (Exception e) {
-            System.out.println("Error: " + e.getMessage());
+    public void setAge(int age) {
+        if (age > 0 && age <= 120) {
+            this.age = age;
+        } else {
+            System.out.println("Invalid age!");
         }
+    }
 
-        sc.close();
+    public String getName() {
+        return name;
+    }
+
+    public int getAge() {
+        return age;
+    }
+}
+
+public class PatientValidationMain {
+    public static void main(String[] args) {
+        Patient p = new Patient();
+
+        p.setName("Rahul");
+        p.setAge(25);
+
+        System.out.println("Patient Name: " + p.getName());
+        System.out.println("Patient Age: " + p.getAge());
+
+        p.setAge(150);
     }
 }

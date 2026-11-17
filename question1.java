@@ -1,22 +1,23 @@
-import java.util.Scanner;
+class Student {
+    int rollNo;
+    String name;
+    double marks;
 
-public class Question1 {
+    void displayDetails() {
+        System.out.println("Roll Number: " + rollNo);
+        System.out.println("Name: " + name);
+        System.out.println("Marks: " + marks);
+    }
+}
+
+public class StudentMain {
     public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
+        Student s1 = new Student();
 
-        System.out.print("Enter first integer: ");
-        int a = sc.nextInt();
+        s1.rollNo = 101;
+        s1.name = "Rahul";
+        s1.marks = 85.5;
 
-        System.out.print("Enter second integer: ");
-        int b = sc.nextInt();
-
-        try {
-            int result = a / b;
-            System.out.println("Result: " + result);
-        } catch (ArithmeticException e) {
-            System.out.println("Error: Cannot divide by zero.");
-        }
-
-        sc.close();
+        s1.displayDetails();
     }
 }

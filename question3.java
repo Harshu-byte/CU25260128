@@ -1,12 +1,22 @@
-public class Question3 {
-    public static void main(String[] args) {
-        String str = "123";
+class Pharmacy {
+    String pharmacyName;
+    String location;
 
-        try {
-            int number = Integer.parseInt(str);
-            System.out.println("Integer value: " + number);
-        } catch (NumberFormatException e) {
-            System.out.println("Error: Invalid integer string.");
-        }
+    Pharmacy(String pharmacyName, String location) {
+        this.pharmacyName = pharmacyName;
+        this.location = location;
+    }
+
+    void displayDetails() {
+        System.out.println("Pharmacy Name: " + pharmacyName);
+        System.out.println("Location: " + location);
+    }
+}
+
+public class PharmacyMain {
+    public static void main(String[] args) {
+        Pharmacy p1 = new Pharmacy("Health Care Pharmacy", "Roorkee");
+
+        p1.displayDetails();
     }
 }

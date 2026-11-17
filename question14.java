@@ -1,40 +1,47 @@
-import java.util.Scanner;
+class Employee {
+    String name;
+    double salary;
 
-class InvalidExamMarksException extends Exception {
-    InvalidExamMarksException(String message) {
-        super(message);
+    void displayEmployee() {
+        System.out.println("Name: " + name);
+        System.out.println("Salary: " + salary);
     }
 }
 
-public class question14 {
+class Doctor extends Employee {
+    String specialization;
+
+    void displayDoctor() {
+        displayEmployee();
+        System.out.println("Specialization: " + specialization);
+    }
+}
+
+class Pharmacist extends Employee {
+    String pharmacyName;
+
+    void displayPharmacist() {
+        displayEmployee();
+        System.out.println("Pharmacy: " + pharmacyName);
+    }
+}
+
+public class HierarchicalMain {
     public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
+        Doctor d = new Doctor();
+        d.name = "Amit";
+        d.salary = 50000;
+        d.specialization = "Cardiology";
 
-        try {
-            System.out.print("Enter student's marks: ");
-            int marks = Integer.parseInt(sc.nextLine());
+        Pharmacist p = new Pharmacist();
+        p.name = "Rahul";
+        p.salary = 30000;
+        p.pharmacyName = "Health Care Pharmacy";
 
-            if (marks < 0 || marks > 100) {
-                throw new InvalidExamMarksException(
-                    "Marks must be between 0 and 100."
-                );
-            }
+        System.out.println("Doctor Details:");
+        d.displayDoctor();
 
-            if (marks >= 40) {
-                System.out.println("PASS");
-            } else {
-                System.out.println("FAIL");
-            }
-
-        } catch (InvalidExamMarksException e) {
-            System.out.println("Error: " + e.getMessage());
-
-        } catch (NumberFormatException e) {
-            System.out.println("Error: Invalid marks input.");
-
-        } finally {
-            System.out.println("Exam evaluation completed.");
-            sc.close();
-        }
+        System.out.println("\nPharmacist Details:");
+        p.displayPharmacist();
     }
 }

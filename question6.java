@@ -1,25 +1,40 @@
-import java.util.Scanner;
+class MedicineProduct {
+    private String medicineName;
+    private double price;
+    private int quantity;
 
-public class Question6 {
+    public void setDetails(String medicineName, double price, int quantity) {
+        this.medicineName = medicineName;
+        this.price = price;
+        this.quantity = quantity;
+    }
+
+    public String getMedicineName() {
+        return medicineName;
+    }
+
+    public double getPrice() {
+        return price;
+    }
+
+    public int getQuantity() {
+        return quantity;
+    }
+
+    public double calculateTotal() {
+        return price * quantity;
+    }
+}
+
+public class MedicineProductMain {
     public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
+        MedicineProduct m = new MedicineProduct();
 
-        System.out.print("Enter student's marks: ");
-        int marks = sc.nextInt();
+        m.setDetails("Paracetamol", 10, 5);
 
-        try {
-            if (marks < 0 || marks > 100) {
-                throw new IllegalArgumentException(
-                    "Marks must be between 0 and 100."
-                );
-            }
-
-            System.out.println("Valid marks: " + marks);
-
-        } catch (IllegalArgumentException e) {
-            System.out.println("Error: " + e.getMessage());
-        }
-
-        sc.close();
+        System.out.println("Medicine: " + m.getMedicineName());
+        System.out.println("Price: " + m.getPrice());
+        System.out.println("Quantity: " + m.getQuantity());
+        System.out.println("Total: " + m.calculateTotal());
     }
 }

@@ -1,51 +1,20 @@
-import java.util.Scanner;
+class Medicine {
+    String medicineName = "Paracetamol";
+    double price = 25.50;
 
-class InsufficientBalanceException extends Exception {
-    InsufficientBalanceException(String message) {
-        super(message);
+    void displayDetails() {
+        System.out.println("Medicine Name: " + medicineName);
+        System.out.println("Price: " + price);
     }
 }
 
-public class question11 {
+public class DefaultAccessMain {
     public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
+        Medicine m = new Medicine();
 
-        try {
-            System.out.print("Enter account balance: ");
-            double balance = Double.parseDouble(sc.nextLine());
+        System.out.println("Medicine: " + m.medicineName);
+        System.out.println("Price: " + m.price);
 
-            System.out.print("Enter withdrawal amount: ");
-            double amount = Double.parseDouble(sc.nextLine());
-
-            if (amount < 0) {
-                throw new IllegalArgumentException(
-                    "Withdrawal amount cannot be negative."
-                );
-            }
-
-            if (amount > balance) {
-                throw new InsufficientBalanceException(
-                    "Insufficient account balance."
-                );
-            }
-
-            balance = balance - amount;
-
-            System.out.println("Withdrawal successful.");
-            System.out.println("Remaining balance: " + balance);
-
-        } catch (InsufficientBalanceException e) {
-            System.out.println("Error: " + e.getMessage());
-
-        } catch (IllegalArgumentException e) {
-            System.out.println("Error: " + e.getMessage());
-
-        } catch (NumberFormatException e) {
-            System.out.println("Error: Invalid numeric input.");
-
-        } finally {
-            System.out.println("Bank transaction completed.");
-            sc.close();
-        }
+        m.displayDetails();
     }
 }

@@ -1,34 +1,44 @@
-import java.util.Scanner;
+class BankAccount {
+    private int accountNumber;
+    private double balance;
 
-public class Question8 {
-    public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
+    public void setAccountDetails(int accountNumber, double balance) {
+        this.accountNumber = accountNumber;
+        this.balance = balance;
+    }
 
-        int[] arr = {10, 20, 30, 40, 50};
-
-        try {
-            System.out.print("Enter first number: ");
-            int a = sc.nextInt();
-
-            System.out.print("Enter second number: ");
-            int b = sc.nextInt();
-
-            System.out.println("Division: " + (a / b));
-
-            try {
-                System.out.print("Enter array index (0-4): ");
-                int index = sc.nextInt();
-
-                System.out.println("Array element: " + arr[index]);
-
-            } catch (ArrayIndexOutOfBoundsException e) {
-                System.out.println("Error: Invalid array index.");
-            }
-
-        } catch (ArithmeticException e) {
-            System.out.println("Error: Cannot divide by zero.");
+    public void deposit(double amount) {
+        if (amount > 0) {
+            balance += amount;
+            System.out.println("Amount deposited: " + amount);
+        } else {
+            System.out.println("Invalid deposit amount.");
         }
+    }
 
-        sc.close();
+    public void withdraw(double amount) {
+        if (amount > 0 && amount <= balance) {
+            balance -= amount;
+            System.out.println("Amount withdrawn: " + amount);
+        } else {
+            System.out.println("Insufficient balance or invalid amount.");
+        }
+    }
+
+    public void displayBalance() {
+        System.out.println("Account Number: " + accountNumber);
+        System.out.println("Balance: " + balance);
+    }
+}
+
+public class BankAccountMain {
+    public static void main(String[] args) {
+        BankAccount account = new BankAccount();
+
+        account.setAccountDetails(12345, 5000);
+
+        account.deposit(2000);
+        account.withdraw(1500);
+        account.displayBalance();
     }
 }

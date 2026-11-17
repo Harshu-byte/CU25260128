@@ -1,45 +1,30 @@
-import java.util.Scanner;
+class Person {
+    String name;
+    int age;
 
-class InvalidDosageException extends Exception {
-    InvalidDosageException(String message) {
-        super(message);
+    void displayPerson() {
+        System.out.println("Name: " + name);
+        System.out.println("Age: " + age);
     }
 }
 
-public class question13 {
+class Student extends Person {
+    int rollNo;
+
+    void displayStudent() {
+        displayPerson();
+        System.out.println("Roll Number: " + rollNo);
+    }
+}
+
+public class SingleInheritanceMain {
     public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
+        Student s = new Student();
 
-        try {
-            System.out.print("Enter patient name: ");
-            String patient = sc.nextLine();
+        s.name = "Rahul";
+        s.age = 20;
+        s.rollNo = 101;
 
-            System.out.print("Enter drug name: ");
-            String drug = sc.nextLine();
-
-            System.out.print("Enter dosage in mg: ");
-            int dosage = Integer.parseInt(sc.nextLine());
-
-            if (dosage <= 0 || dosage > 1000) {
-                throw new InvalidDosageException(
-                    "Dosage must be between 1 and 1000 mg."
-                );
-            }
-
-            System.out.println("Dosage validated successfully.");
-            System.out.println("Patient: " + patient);
-            System.out.println("Drug: " + drug);
-            System.out.println("Dosage: " + dosage + " mg");
-
-        } catch (InvalidDosageException e) {
-            System.out.println("Error: " + e.getMessage());
-
-        } catch (NumberFormatException e) {
-            System.out.println("Error: Invalid dosage input.");
-
-        } finally {
-            System.out.println("Dosage validation completed.");
-            sc.close();
-        }
+        s.displayStudent();
     }
 }

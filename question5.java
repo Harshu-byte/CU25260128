@@ -1,24 +1,27 @@
-import java.util.Scanner;
+class Medicine {
+    String medicineName;
+    int minimumAge;
 
-public class Question5 {
-    public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
+    Medicine(String medicineName, int minimumAge) {
+        this.medicineName = medicineName;
+        this.minimumAge = minimumAge;
+    }
 
-        try {
-            System.out.print("Enter first number: ");
-            int a = sc.nextInt();
+    void checkEligibility(int patientAge) {
+        System.out.println("Medicine: " + medicineName);
 
-            System.out.print("Enter second number: ");
-            int b = sc.nextInt();
-
-            int result = a / b;
-            System.out.println("Result: " + result);
-
-        } catch (ArithmeticException e) {
-            System.out.println("Error: Cannot divide by zero.");
-        } finally {
-            System.out.println("Program execution completed.");
-            sc.close();
+        if (patientAge >= minimumAge) {
+            System.out.println("Patient is eligible.");
+        } else {
+            System.out.println("Patient is not eligible.");
         }
+    }
+}
+
+public class EligibilityMain {
+    public static void main(String[] args) {
+        Medicine m1 = new Medicine("Medicine A", 18);
+
+        m1.checkEligibility(25);
     }
 }

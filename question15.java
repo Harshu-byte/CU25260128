@@ -1,60 +1,37 @@
-import java.util.Scanner;
+class Person {
+    String name;
 
-class InvalidQuantityException extends Exception {
-    InvalidQuantityException(String message) {
-        super(message);
+    void displayPerson() {
+        System.out.println("Name: " + name);
     }
 }
 
-class InsufficientMedicineStockException extends Exception {
-    InsufficientMedicineStockException(String message) {
-        super(message);
+class Employee extends Person {
+    int employeeId;
+
+    void displayEmployee() {
+        displayPerson();
+        System.out.println("Employee ID: " + employeeId);
     }
 }
 
-public class question15 {
+class Manager extends Employee {
+    String department;
+
+    void displayManager() {
+        displayEmployee();
+        System.out.println("Department: " + department);
+    }
+}
+
+public class MultilevelMain {
     public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
+        Manager m = new Manager();
 
-        try {
-            System.out.print("Enter medicine name: ");
-            String medicine = sc.nextLine();
+        m.name = "Suresh";
+        m.employeeId = 101;
+        m.department = "Administration";
 
-            System.out.print("Enter available quantity: ");
-            int available = Integer.parseInt(sc.nextLine());
-
-            System.out.print("Enter required quantity: ");
-            int required = Integer.parseInt(sc.nextLine());
-
-            if (available < 0 || required < 0) {
-                throw new InvalidQuantityException(
-                    "Quantity cannot be negative."
-                );
-            }
-
-            if (required > available) {
-                throw new InsufficientMedicineStockException(
-                    "Insufficient medicine stock."
-                );
-            }
-
-            System.out.println("Medicine: " + medicine);
-            System.out.println("Available quantity: " + available);
-            System.out.println("Required quantity: " + required);
-            System.out.println("Inventory transaction successful.");
-
-        } catch (NumberFormatException e) {
-            System.out.println("Error: Enter valid numeric quantities.");
-
-        } catch (InvalidQuantityException e) {
-            System.out.println("Error: " + e.getMessage());
-
-        } catch (InsufficientMedicineStockException e) {
-            System.out.println("Error: " + e.getMessage());
-
-        } finally {
-            System.out.println("Inventory transaction completed.");
-            sc.close();
-        }
+        m.displayManager();
     }
 }

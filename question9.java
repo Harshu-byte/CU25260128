@@ -1,25 +1,20 @@
-public class Question9 {
+class Medicine {
+    public String medicineName = "Paracetamol";
+    public double price = 20;
 
-    static void method3() {
-        int result = 10 / 0;
-        System.out.println(result);
+    public void displayDetails() {
+        System.out.println("Medicine: " + medicineName);
+        System.out.println("Price: " + price);
     }
+}
 
-    static void method2() {
-        method3();
-    }
-
-    static void method1() {
-        method2();
-    }
-
+public class PublicAccessMain {
     public static void main(String[] args) {
-        try {
-            method1();
-        } catch (ArithmeticException e) {
-            System.out.println(
-                "Exception handled in main: Cannot divide by zero."
-            );
-        }
+        Medicine m = new Medicine();
+
+        System.out.println(m.medicineName);
+        System.out.println(m.price);
+
+        m.displayDetails();
     }
 }
